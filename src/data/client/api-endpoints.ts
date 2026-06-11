@@ -1,0 +1,21 @@
+export const API_ENDPOINTS = {
+  TOKEN: 'authentication/token',
+
+  LOGIN: 'login',
+  POSTS: 'posts',
+  COURSES: 'courses',
+  QUIZZES: 'quizzes',
+  HEALTH: 'health',
+  ASSETS: 'assets',
+  CATEGORIES: 'categories',
+  APIS: 'apis',
+  MENUS: 'menus',
+  ROLES: 'roles',
+  DEPARTMENTS: 'departments',
+  PROFILE: 'profile',
+  ME: 'me',
+  USERS: 'users',
+  MANUFACTURERS: 'manufacturers',
+  SUPPLIERS: 'suppliers',
+  MODELS: 'models',
+}
