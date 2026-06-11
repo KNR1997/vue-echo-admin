@@ -338,7 +338,8 @@ export interface QuizQueryOptions extends QueryOptions {
 }
 
 export interface ApiQueryOptions extends QueryOptions {
-  name: string
+  path: Ref<string, string>
+  tags: Ref<string, string>
 }
 
 export interface RoleQueryOptions extends QueryOptions {

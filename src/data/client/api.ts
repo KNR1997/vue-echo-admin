@@ -11,11 +11,11 @@ import { HttpClient } from './http-client'
 
 export const apiClient = {
   ...crudFactory<Api, QueryOptions, ApiCreateInput>(API_ENDPOINTS.APIS),
-  paginated: ({ name, ...params }: Partial<ApiQueryOptions>) => {
+  paginated: ({ path, tags, ...params }: Partial<ApiQueryOptions>) => {
     return HttpClient.get<ApiPaginator>(API_ENDPOINTS.APIS, {
       searchJoin: 'and',
       ...params,
-      // search: HttpClient.formatSearchParams({ name }),
+      search: HttpClient.formatSearchParams({ path, tags }),
     })
   },
 }
