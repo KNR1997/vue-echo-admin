@@ -180,6 +180,7 @@ export interface Role {
   desc: string
   created_at: string
   menu_ids: number[]
+  apis: Api[]
 }
 
 export interface RoleCreateInput {
@@ -190,6 +191,7 @@ export interface RoleCreateInput {
 export interface AuthorizeRoleInput {
   id: number
   menu_ids: number[]
+  api_ids: number[]
 }
 
 export interface PostCreateInput {

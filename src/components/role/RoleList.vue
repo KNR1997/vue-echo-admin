@@ -7,8 +7,9 @@ import { useMenusQuery } from "@/data/menu.ts";
 // utils
 import { formatDate, renderIcon } from "@/utils";
 // types
-import type { Role, Category } from "@/types";
+import type { Role, Category, Api } from "@/types";
 // hooks
+import { useApisQuery } from "@/data/api.ts";
 import { useModalStore } from "@/store/modal";
 import {
   useAuthorizeRoleMutation,
@@ -31,12 +32,13 @@ const modal = useModalStore();
 
 const searchValue = ref("");
 const active = ref(false);
-const pattern = ref(""); // Added missing pattern ref
+const pattern = ref("");
+const apiTree = ref([])
 
 // Store selected role ID and menu IDs
 const selectedRole = ref<Role | null>(null);
 const selectedMenuIds = ref<number[]>([]);
-const selectedApiIds = ref<string[]>([]); // Added for API permissions if needed
+const selectedApiIds = ref<string[]>([]);
 
 // query
 const {
@@ -47,10 +49,20 @@ const {
   page: 1,
   page_size: 20,
 });
+const { apis: apiOption } = useApisQuery({
+  page: 1,
+  page_size: 20,
+});
 
 // mutation
 const { mutateAsync: deleteRole } = useDeleteRoleMutation();
 const { mutateAsync: authorizeRole } = useAuthorizeRoleMutation();
+
+// Computed tree data
+const apiTreeData = computed(() => {
+  if (!apiOption.value || apiOption.value.length === 0) return [];
+  return buildApiTree(apiOption.value);
+});
 
 function onEdit(role: Role) {
   modal.open(RoleModal, {
@@ -99,7 +111,36 @@ function openPermissionsDrawer(role: Role) {
   selectedRole.value = role;
   // Extract menu IDs from the role's menus (if they exist)
   selectedMenuIds.value = role.menu_ids?.map((menu) => menu) ?? [];
+  selectedApiIds.value = role.apis?.map(
+    (v) => v.method.toLowerCase() + v.path) ?? [];
   active.value = true;
+}
+
+function buildApiTree(data) {
+  // role.api_ids like [1, 3, 5]
+  const processedData = []
+  const groupedData = {}
+
+  data.forEach((item) => {
+    const tags = item['tags']
+    const pathParts = item['path'].split('/')
+    const path = pathParts.slice(0, -1).join('/')
+    const summary = tags.charAt(0).toUpperCase() + tags.slice(1)
+    const unique_id = item['method'].toLowerCase() + item['path']
+    if (!(path in groupedData)) {
+      groupedData[path] = { unique_id: path, path: path, summary: summary, children: [] }
+    }
+
+    groupedData[path].children.push({
+      id: item['id'],
+      path: item['path'],
+      method: item['method'],
+      summary: item['summary'],
+      unique_id: unique_id,
+    })
+  })
+  processedData.push(...Object.values(groupedData))
+  return processedData
 }
 
 const columns = [
@@ -193,11 +234,20 @@ const columns = [
 
 async function updateRoleAuthorized() {
   if (!selectedRole.value) return;
+  const checkData = apiTree.value.getCheckedData()
+  const apiInfos = []
+  checkData &&
+    checkData.options.forEach((item) => {
+      if (!item.children) {
+        apiInfos.push(item.id)
+      }
+    })
 
   try {
     await authorizeRole({
       id: selectedRole.value.id,
       menu_ids: selectedMenuIds.value,
+      api_ids: apiInfos,
     });
     active.value = false;
     // Optionally show success message
@@ -207,7 +257,7 @@ async function updateRoleAuthorized() {
 }
 
 // You'll need to add apiOption if you're using API permissions
-const apiOption = ref([]); // Add this if you're implementing API permissions
+// const apiOption = ref([]); // Add this if you're implementing API permissions
 </script>
 
 <template>
@@ -270,12 +320,12 @@ const apiOption = ref([]); // Add this if you're implementing API permissions
         </NTabPane>
         <NTabPane
           name="resource"
-          tab="Interface permissions"
+          tab="Api permissions"
           display-directive="show"
         >
           <NTree
             ref="apiTree"
-            :data="apiOption"
+            :data="apiTreeData"
             :checked-keys="selectedApiIds"
             :pattern="pattern"
             :show-irrelevant-nodes="false"
