@@ -1,7 +1,7 @@
 import { HttpClient } from './http-client'
 import { crudFactory } from './curd-factory'
 import { API_ENDPOINTS } from './api-endpoints'
-import type { QueryOptions, Role, RoleCreateInput, RolePaginator, RoleQueryOptions } from '@/types'
+import type { AuthorizeRoleInput, QueryOptions, Role, RoleCreateInput, RolePaginator, RoleQueryOptions } from '@/types'
 
 export const roleClient = {
   ...crudFactory<Role, QueryOptions, RoleCreateInput>(API_ENDPOINTS.ROLES),
@@ -11,5 +11,8 @@ export const roleClient = {
       ...params,
       search: HttpClient.formatSearchParams({ name }),
     })
+  },
+  authorize: (data: AuthorizeRoleInput) => {
+    return HttpClient.post(`${API_ENDPOINTS.ROLES}/${data.id}/authorize`, data)
   },
 }

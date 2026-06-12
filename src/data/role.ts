@@ -83,3 +83,24 @@ export const useDeleteRoleMutation = () => {
     },
   })
 }
+
+export const useAuthorizeRoleMutation = () => {
+  const queryClient = useQueryClient()
+  const message = useMessage()
+
+  return useMutation({
+    mutationFn: roleClient.authorize,
+
+    onSuccess: () => {
+      message.success('Created successfully')
+
+      queryClient.invalidateQueries({
+        queryKey: [API_ENDPOINTS.ROLES],
+      })
+    },
+    onError: (error: Error) => {
+      console.error('Create Role failed:', error)
+      message.error(error.message)
+    },
+  })
+}

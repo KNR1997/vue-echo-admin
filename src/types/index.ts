@@ -175,14 +175,21 @@ export interface MenuCreateInput {
 }
 
 export interface Role {
-  id: string
+  id: number
   name: string
   desc: string
+  created_at: string
+  menu_ids: number[]
 }
 
 export interface RoleCreateInput {
   name: string
   desc: string
+}
+
+export interface AuthorizeRoleInput {
+  id: number
+  menu_ids: number[]
 }
 
 export interface PostCreateInput {
