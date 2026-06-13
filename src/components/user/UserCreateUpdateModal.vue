@@ -69,7 +69,7 @@ watch(
       role_ids: user.roles.map((role) => role.id),
       is_superuser: user.is_superuser,
       is_active: user.is_active,
-      dept_id: user.department.id,
+      dept_id: user.department?.id,
     }
   },
   { immediate: true },

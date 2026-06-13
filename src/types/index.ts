@@ -73,7 +73,7 @@ export interface User {
   last_login: Date
   is_superuser: boolean
   roles: Role[]
-  department: Department
+  department: Department | null
 }
 
 export interface UserCreateInput {

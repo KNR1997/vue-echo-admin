@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useMessage } from 'naive-ui'
 import { useRoute, useRouter } from 'vue-router'
+import { addDynamicRoutes } from '@/router'
 // assets
 import bgImg from '@/assets/images/login_bg.webp'
 // utils
@@ -35,6 +36,7 @@ async function handleLogin() {
     const response = await login({ email, password })
     // save token
     setToken(response.accessToken)
+    await addDynamicRoutes()
     // toast message
     message.success(t('views.login.message_login_success'))
     // redirect

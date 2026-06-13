@@ -1,6 +1,10 @@
 import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router'
-import { basicRoutes } from './routes'
+import { basicRoutes, EMPTY_ROUTE, NOT_FOUND_ROUTE } from './routes'
 import { setupRouterGuard } from './guard'
+import { usePermissionStore } from '@/store/modules/permission'
+import { useUserStore } from '@/store'
+// import { getToken, isNullOrWhitespace } from '@/utils'
+// import { useUserStore, usePermissionStore } from '@/store'
 
 const isHash = import.meta.env.VITE_USE_HASH === 'true'
 export const router = createRouter({
@@ -10,6 +14,7 @@ export const router = createRouter({
 })
 
 export async function setupRouter(app: any) {
+  await addDynamicRoutes()
   setupRouterGuard(router)
   app.use(router)
 }
@@ -22,6 +27,33 @@ export async function resetRouter() {
       router.removeRoute(name)
     }
   })
+}
+
+export async function addDynamicRoutes() {
+  // const token = getToken()
+
+  // // 没有token情况
+  // if (isNullOrWhitespace(token)) {
+  //   router.addRoute(EMPTY_ROUTE)
+  //   return
+  // }
+  // 有token的情况
+  const userStore = useUserStore()
+  const permissionStore = usePermissionStore()
+  !userStore.userId && (await userStore.getUserInfo())
+  try {
+    const accessRoutes = await permissionStore.generateRoutes()
+    // await permissionStore.getAccessApis()
+    accessRoutes.forEach((route) => {
+      !router.hasRoute(route.name) && router.addRoute(route)
+    })
+    router.hasRoute(EMPTY_ROUTE.name) && router.removeRoute(EMPTY_ROUTE.name)
+    router.addRoute(NOT_FOUND_ROUTE)
+  } catch (error) {
+    console.error('error', error)
+    // const userStore = useUserStore()
+    // await userStore.logout()
+  }
 }
 
 export function getRouteNames(routes) {

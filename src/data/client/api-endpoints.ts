@@ -18,4 +18,5 @@ export const API_ENDPOINTS = {
   MANUFACTURERS: 'manufacturers',
   SUPPLIERS: 'suppliers',
   MODELS: 'models',
+  BASE: 'base',
 }

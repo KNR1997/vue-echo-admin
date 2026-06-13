@@ -10,9 +10,10 @@
   />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useTagsStore, useAppStore } from '@/store'
 import { renderIcon } from '@/utils'
+import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
 const props = defineProps({

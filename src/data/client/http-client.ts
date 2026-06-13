@@ -103,7 +103,7 @@ export class HttpClient {
   static formatSearchParams(params: Partial<SearchParamOptions>) {
     return Object.entries(params)
       .filter(([, value]) => Boolean(value))
-      .map(([k, v]) => (['tags'].includes(k) ? `${k}.slug:${v}` : `${k}:${v}`))
+      .map(([k, v]) => (['slugSpecific'].includes(k) ? `${k}.slug:${v}` : `${k}:${v}`))
       .join(';')
   }
 }

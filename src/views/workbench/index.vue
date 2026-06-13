@@ -10,73 +10,64 @@
               <p mt-5 text-14 op-60>Today is another day full of energy!</p>
             </div>
           </div>
-          <!-- <n-space :size="12" :wrap="false">
-            <n-statistic
-              v-for="item in statisticData"
-              :key="item.id"
-              v-bind="item"
-            ></n-statistic>
-          </n-space> -->
+          <n-space :size="12" :wrap="false">
+            <n-statistic v-for="item in statisticData" :key="item.id" v-bind="item"></n-statistic>
+          </n-space>
         </div>
       </n-card>
-      <!-- 
-      <n-card size="small" :segmented="true" mt-15 rounded-10>
+      <n-card
+        :title="$t('views.workbench.label_project')"
+        size="small"
+        :segmented="true"
+        mt-15
+        rounded-10
+      >
         <template #header-extra>
-          <n-button text type="primary">More</n-button>
+          <n-button text type="primary">{{ $t('views.workbench.label_more') }}</n-button>
         </template>
         <div flex flex-wrap justify-between>
           <n-card
-            v-for="course in courses"
-            :key="course.id"
+            v-for="i in 9"
+            :key="i"
             class="mb-10 mt-10 w-300 cursor-pointer"
             hover:card-shadow
-            :title="course.code + ' ' + course.name"
+            title="Vue Echo Admin"
             size="small"
-            @click="openCourseModal(course)"
           >
             <p op-60>{{ dummyText }}</p>
-            <p mt-15>Quizzes: 1/5</p>
           </n-card>
         </div>
-      </n-card> -->
-      <!-- <n-modal v-model:show="showModal" preset="card" style="width: 600px" title="Course Details">
-        <div v-if="selectedCourse">
-          <p><b>Code:</b> {{ selectedCourse.code }}</p>
-          <p><b>Name:</b> {{ selectedCourse.name }}</p>
-          <p><b>Description:</b> {{ selectedCourse.description || '—' }}</p>
-        </div>
-      </n-modal> -->
+      </n-card>
     </div>
   </AppPage>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { computed } from 'vue';
+import { useI18n } from 'vue-i18n'
+import { useUserStore } from '@/store';
 import AppPage from '@/components/page/AppPage.vue'
-// import { useCoursesQuery } from '~/src/data/courses'
 
-// const { courses } = useCoursesQuery({})
+const userStore = useUserStore()
+const { t } = useI18n({ useScope: 'global' })
 
-// console.log('health checking-------------')
+const dummyText = 'A lightweight backend management template based on Vue 3.0, Golang(Echo), and Naive UI.'
 
-// import { useCoursesQuery } from '~/src/data/courses'
-
-// const { courses } = useCoursesQuery({})
-
-// const showModal = ref(false)
-// const selectedCourse = ref(null)
-
-// const openCourseModal = (course) => {
-//   selectedCourse.value = course
-//   showModal.value = true
-// }
-
-// async function getCourseList(params) {
-//   const res = await api.getCourseList()
-//   console.log('res------------: ', res)
-// }
-
-// getCourseList()
-
-const dummyText = 'A lightweight admin management template based on Vue 3.0, FastAPI, and Naive UI.'
+const statisticData = computed(() => [
+  {
+    id: 0,
+    label: t('views.workbench.label_number_of_items'),
+    value: '25',
+  },
+  {
+    id: 1,
+    label: t('views.workbench.label_upcoming'),
+    value: '4/16',
+  },
+  {
+    id: 2,
+    label: t('views.workbench.label_information'),
+    value: '12',
+  },
+])
 </script>

@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { useDark } from '@vueuse/core'
 import { lStorage } from '@/utils'
+import { nextTick } from 'vue'
 // import i18n from '~/i18n'
 
 // const { locale } = i18n.global

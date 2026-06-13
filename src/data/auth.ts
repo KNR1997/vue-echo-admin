@@ -1,10 +1,12 @@
-import { useMessage } from 'naive-ui'
-import { fetchMe } from './user'
-import { useUserStore } from '@/store'
-import { authClient } from './client/auth'
-import { setToken } from '@/utils/auth/token'
-import { useMutation } from '@tanstack/vue-query'
-import type { LoginInput, AuthResponse } from '@/types'
+import { useMessage } from "naive-ui";
+import { fetchMe } from "./user";
+import { useUserStore } from "@/store";
+import { authClient } from "./client/auth";
+import { setToken } from "@/utils/auth/token";
+import { useMutation } from "@tanstack/vue-query";
+import type { LoginInput, AuthResponse } from "@/types";
+import { nextTick } from "vue";
+import api from "@/api";
 
 export function useLogin() {
   const message = useMessage()
@@ -12,15 +14,20 @@ export function useLogin() {
   return useMutation<AuthResponse, Error, LoginInput>({
     mutationFn: authClient.login,
     onSuccess: async (response) => {
+      // Set token synchronously
       setToken(response.accessToken)
-      // fetch user detail (username, email)
-      // const me = await fetchMe()
-      // store details global state
+      
+      // Ensure token is set before fetching (add small delay if needed)
+      await nextTick() // Only if using Vue reactivity
+      
+      // Fetch user details
+      const me = await api.fetchMe()
+      
       const userStore = useUserStore()
       userStore.setUserInfo({
-        userId: 1,
-        username: "test",
-        email: "test@gmail.com"
+        userId: me.id,
+        username: me.username,
+        email: me.email
       })
     },
     onError: (error: any) => {

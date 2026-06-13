@@ -25,6 +25,10 @@ export const useUpdateProfile = () => {
         queryKey: [API_ENDPOINTS.PROFILE],
       })
     },
+    onError: (error: Error) => {
+      console.error('Profile update failed:', error)
+      message.error(error.message)
+    },
   })
 }
 
