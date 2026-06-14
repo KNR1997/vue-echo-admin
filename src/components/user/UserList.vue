@@ -2,7 +2,7 @@
 import { computed, h, ref } from 'vue'
 import { NButton, NPopconfirm, NSwitch, NTag } from 'naive-ui'
 // hooks
-import { useDeleteUserMutation } from '@/data/user.ts'
+import { useDeleteUserMutation, usePatchUserMutation } from '@/data/user.ts'
 // utils
 import { renderIcon, formatDate } from '@/utils'
 // types
@@ -29,6 +29,7 @@ const emailValue = ref('')
 
 // mutation
 const { mutateAsync: deleteUser } = useDeleteUserMutation()
+const { mutateAsync: patchUser } = usePatchUserMutation()
 
 function onEdit(user: User) {
   modal.open(UserCreateUpdateModal, {
@@ -36,6 +37,13 @@ function onEdit(user: User) {
     props: {
       user,
     },
+  })
+}
+
+async function handleUpdateIsActive(row: User) {
+  patchUser({
+    id: row.id,
+    is_active: !row.is_active,
   })
 }
 
@@ -148,7 +156,7 @@ const columns = [
         // loading: !!row.publishing,
         checkedValue: false,
         uncheckedValue: true,
-        // onUpdateValue: () => handleUpdateDisable(row),
+        onUpdateValue: () => handleUpdateIsActive(row),
       })
     },
   },
