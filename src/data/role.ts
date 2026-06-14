@@ -6,6 +6,7 @@ import { mapPaginatorData } from '@/utils/data-mappers'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query'
 import type { Role, RolePaginator, RoleQueryOptions } from '@/types'
 import { API_ENDPOINTS } from './client/api-endpoints'
+import { addDynamicRoutes } from '@/router'
 
 export const useRolesQuery = (options: Partial<RoleQueryOptions>) => {
   const { data, error, isPending } = useQuery<RolePaginator, Error>({
@@ -91,12 +92,15 @@ export const useAuthorizeRoleMutation = () => {
   return useMutation({
     mutationFn: roleClient.authorize,
 
-    onSuccess: () => {
+    onSuccess: async() => {
       message.success('Created successfully')
 
       queryClient.invalidateQueries({
         queryKey: [API_ENDPOINTS.ROLES],
       })
+
+      // reset dynamic routes
+      await addDynamicRoutes()
     },
     onError: (error: Error) => {
       console.error('Create Role failed:', error)

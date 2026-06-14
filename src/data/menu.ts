@@ -6,6 +6,7 @@ import { mapPaginatorData } from '@/utils/data-mappers'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query'
 import type { Menu, MenuPaginator, MenuQueryOptions } from '@/types'
 import { API_ENDPOINTS } from './client/api-endpoints'
+import { addDynamicRoutes } from '@/router'
 
 export const useMenusQuery = (options: Partial<MenuQueryOptions>) => {
   const { data, error, isPending } = useQuery<MenuPaginator, Error>({
@@ -50,12 +51,15 @@ export const useUpdateMenuMutation = () => {
 
   return useMutation({
     mutationFn: menuClient.update,
-    onSuccess: () => {
+    onSuccess: async () => {
       message.success('Updated successfully')
 
       queryClient.invalidateQueries({
         queryKey: [API_ENDPOINTS.MENUS],
       })
+
+      // reset dynamic routes
+      await addDynamicRoutes()
     },
     onError: (error: Error) => {
       console.error('Update Menu failed:', error)
