@@ -104,6 +104,26 @@ export const useUpdateUserMutation = () => {
   })
 }
 
+export const usePatchUserMutation = () => {
+  const queryClient = useQueryClient()
+  const message = useMessage()
+
+  return useMutation({
+    mutationFn: userClient.patch,
+    onSuccess: () => {
+      message.success('Updated successfully')
+
+      queryClient.invalidateQueries({
+        queryKey: [API_ENDPOINTS.USERS],
+      })
+    },
+    onError: (error: Error) => {
+      console.error('Update User failed:', error)
+      message.error(error.message)
+    },
+  })
+}
+
 export const useDeleteUserMutation = () => {
   const queryClient = useQueryClient()
   const message = useMessage()
