@@ -2,12 +2,11 @@
 import { computed, h, KeepAlive, ref } from 'vue'
 import { NButton, NPopconfirm, NSwitch, NTag } from 'naive-ui'
 // hooks
-import { useDeleteDepartmentMutation } from '@/data/department'
 import { useDeleteMenuMutation, usePatchMenuMutation } from '@/data/menu.ts'
 // utils
 import { formatDate, renderIcon } from '@/utils'
 // types
-import type { Menu, Category, Department } from '@/types'
+import type { Menu } from '@/types'
 // hooks
 import { useModalStore } from '@/store/modal'
 import MenuModal from './MenuModal.vue'
