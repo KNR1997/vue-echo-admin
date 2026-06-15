@@ -38,7 +38,10 @@ Axios.interceptors.response.use(
   (error: AxiosError<ApiError>) => {
     const apiError = error.response?.data
 
+    console.log(error?.response)
+
     if (error?.response?.status === 401) {
+      console.log(error?.response?.status)
       const userStore = useUserStore()
       userStore.logout()
     }

@@ -15,6 +15,24 @@ const pageSize = ref(10);
 const searchName = ref("");
 const searchTags = ref("");
 
+// query
+const { apis, paginationInfo, loading } = useApisQuery({
+  page,
+  page_size: pageSize,
+  path: searchName,
+  tags: searchTags,
+});
+
+// store hooks
+const modal = useModalStore();
+
+// open modal for create new
+function openCreateModal() {
+  modal.open(ApiModal, {
+    title: "Create Api",
+  });
+}
+
 // Add debounce to prevent too many API calls
 let searchTimeout: ReturnType<typeof setTimeout>;
 
@@ -36,23 +54,6 @@ function handleReset() {
   searchName.value = "";
   searchTags.value = "";
   page.value = 1;
-}
-
-// query
-const { apis, paginationInfo, loading } = useApisQuery({
-  page,
-  page_size: pageSize,
-  path: searchName,
-  tags: searchTags,
-});
-
-// store hooks
-const modal = useModalStore();
-
-function openCreateModal() {
-  modal.open(ApiModal, {
-    title: "Create Api",
-  });
 }
 </script>
 

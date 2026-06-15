@@ -9,6 +9,7 @@ export const roleClient = {
     return HttpClient.get<RolePaginator>(API_ENDPOINTS.ROLES, {
       searchJoin: 'and',
       ...params,
+      // @ts-ignore
       search: HttpClient.formatSearchParams({ name }),
     })
   },

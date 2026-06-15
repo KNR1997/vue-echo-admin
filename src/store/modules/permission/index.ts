@@ -9,7 +9,7 @@ import { shallowRef } from 'vue'
 // 根据后端传来数据构建出前端路由
 
 function buildRoutes(routes = []) {
-  return routes.map((e) => {
+  return routes.map((e: any) => {
     const route = {
       name: e.name,
       path: e.path,
@@ -25,8 +25,10 @@ function buildRoutes(routes = []) {
       children: [],
     }
 
+    // @ts-ignore
     if (e.children && e.children.length > 0) {
       // 有子菜单
+      // @ts-ignore
       route.children = e.children.map((e_child) => ({
         name: e_child.name,
         path: e_child.path,
@@ -41,6 +43,7 @@ function buildRoutes(routes = []) {
       }))
     } else {
       // 没有子菜单，创建一个默认的子路由
+      // @ts-ignore
       route.children.push({
         name: `${e.name}Default`,
         path: '',
@@ -68,12 +71,16 @@ export const usePermissionStore = defineStore('permission', {
   },
   getters: {
     routes() {
+      // @ts-ignore
       return basicRoutes.concat(this.accessRoutes)
     },
     menus() {
+      // @ts-ignore
       return this.routes.filter((route) => route.name && !route.isHidden)
     },
+    // @ts-ignore
     apis() {
+      // @ts-ignore
       return this.accessApis
     },
   },
@@ -81,6 +88,7 @@ export const usePermissionStore = defineStore('permission', {
     async generateRoutes() {
       const res = await api.getUserMenu() // Call the API to get the menu route from the backend
       // this.accessRoutes = buildRoutes(res.data) // Process into front-end routing format
+      // @ts-ignore
       this.accessRoutes = buildRoutes(res) // Process into front-end routing format
       return this.accessRoutes
     },

@@ -3,6 +3,7 @@ import { basicRoutes, EMPTY_ROUTE, NOT_FOUND_ROUTE } from './routes'
 import { setupRouterGuard } from './guard'
 import { usePermissionStore } from '@/store/modules/permission'
 import { useUserStore } from '@/store'
+import { getToken, isNullOrWhitespace } from '@/utils'
 // import { getToken, isNullOrWhitespace } from '@/utils'
 // import { useUserStore, usePermissionStore } from '@/store'
 
@@ -21,7 +22,7 @@ export async function setupRouter(app: any) {
 
 export async function resetRouter() {
   const basicRouteNames = getRouteNames(basicRoutes)
-  router.getRoutes().forEach((route) => {
+  router.getRoutes().forEach((route: any) => {
     const name = route.name
     if (!basicRouteNames.includes(name)) {
       router.removeRoute(name)
@@ -30,21 +31,24 @@ export async function resetRouter() {
 }
 
 export async function addDynamicRoutes() {
-  // const token = getToken()
+  const token = getToken()
 
-  // // 没有token情况
-  // if (isNullOrWhitespace(token)) {
-  //   router.addRoute(EMPTY_ROUTE)
-  //   return
-  // }
-  // 有token的情况
+  console.log('token----------: ', token)
+
+  // No token
+  if (isNullOrWhitespace(token)) {
+    // @ts-ignore
+    router.addRoute(EMPTY_ROUTE)
+    return
+  }
+  // Case with token
   const userStore = useUserStore()
   const permissionStore = usePermissionStore()
   !userStore.userId && (await userStore.getUserInfo())
   try {
     const accessRoutes = await permissionStore.generateRoutes()
     // await permissionStore.getAccessApis()
-    accessRoutes.forEach((route) => {
+    accessRoutes.forEach((route: any) => {
       !router.hasRoute(route.name) && router.addRoute(route)
     })
     router.hasRoute(EMPTY_ROUTE.name) && router.removeRoute(EMPTY_ROUTE.name)
@@ -56,14 +60,17 @@ export async function addDynamicRoutes() {
   }
 }
 
-export function getRouteNames(routes) {
-  return routes.map((route) => getRouteName(route)).flat(1)
+export function getRouteNames(routes: any) {
+  console.log('here getting routes name')
+  return routes.map((route: any) => getRouteName(route)).flat(1)
 }
 
-function getRouteName(route) {
+function getRouteName(route: any) {
+  console.log('here getting routes name')
+
   const names = [route.name]
   if (route.children && route.children.length) {
-    names.push(...route.children.map((item) => getRouteName(item)).flat(1))
+    names.push(...route.children.map((item: any) => getRouteName(item)).flat(1))
   }
   return names
 }

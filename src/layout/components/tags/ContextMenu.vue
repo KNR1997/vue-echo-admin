@@ -11,10 +11,10 @@
 </template>
 
 <script setup lang="ts">
-import { useTagsStore, useAppStore } from '@/store'
-import { renderIcon } from '@/utils'
-import { computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { useTagsStore, useAppStore } from "@/store";
+import { renderIcon } from "@/utils";
+import { computed } from "vue";
+import { useRoute } from "vue-router";
 
 const props = defineProps({
   show: {
@@ -23,7 +23,7 @@ const props = defineProps({
   },
   currentPath: {
     type: String,
-    default: '',
+    default: "",
   },
   x: {
     type: Number,
@@ -33,93 +33,100 @@ const props = defineProps({
     type: Number,
     default: 0,
   },
-})
+});
 
-const emit = defineEmits(['update:show'])
+const emit = defineEmits(["update:show"]);
 
-const tagsStore = useTagsStore()
-const appStore = useAppStore()
+const tagsStore = useTagsStore();
+const appStore = useAppStore();
 
 const options = computed(() => [
   {
-    label: 'Reload',
-    key: 'reload',
+    label: "Reload",
+    key: "reload",
     disabled: props.currentPath !== tagsStore.activeTag,
-    icon: renderIcon('mdi:refresh', { size: '14px' }),
+    // @ts-ignore
+    icon: renderIcon("mdi:refresh", { size: "14px" }),
   },
   {
-    label: 'Close',
-    key: 'close',
+    label: "Close",
+    key: "close",
     disabled: tagsStore.tags.length <= 1,
-    icon: renderIcon('mdi:close', { size: '14px' }),
+    // @ts-ignore
+    icon: renderIcon("mdi:close", { size: "14px" }),
   },
   {
-    label: 'Close other',
-    key: 'close-other',
+    label: "Close other",
+    key: "close-other",
     disabled: tagsStore.tags.length <= 1,
-    icon: renderIcon('mdi:arrow-expand-horizontal', { size: '14px' }),
+    // @ts-ignore
+    icon: renderIcon("mdi:arrow-expand-horizontal", { size: "14px" }),
   },
   {
-    label: 'Close left',
-    key: 'close-left',
-    disabled: tagsStore.tags.length <= 1 || props.currentPath === tagsStore.tags[0].path,
-    icon: renderIcon('mdi:arrow-expand-left', { size: '14px' }),
+    label: "Close left",
+    key: "close-left",
+    disabled:
+      tagsStore.tags.length <= 1 ||
+      props.currentPath === tagsStore.tags[0].path,
+    // @ts-ignore
+    icon: renderIcon("mdi:arrow-expand-left", { size: "14px" }),
   },
   {
-    label: 'Close right',
-    key: 'close-right',
+    label: "Close right",
+    key: "close-right",
     disabled:
       tagsStore.tags.length <= 1 ||
       props.currentPath === tagsStore.tags[tagsStore.tags.length - 1].path,
-    icon: renderIcon('mdi:arrow-expand-right', { size: '14px' }),
+    // @ts-ignore
+    icon: renderIcon("mdi:arrow-expand-right", { size: "14px" }),
   },
-])
+]);
 
-const route = useRoute()
+const route = useRoute();
 const actionMap = new Map([
   [
-    'reload',
+    "reload",
     () => {
       if (route.meta?.keepAlive) {
         // 重置keepAlive
-        appStore.setAliveKeys(route.name, +new Date())
+        appStore.setAliveKeys(route.name, +new Date());
       }
-      appStore.reloadPage()
+      appStore.reloadPage();
     },
   ],
   [
-    'close',
+    "close",
     () => {
-      tagsStore.removeTag(props.currentPath)
+      tagsStore.removeTag(props.currentPath);
     },
   ],
   [
-    'close-other',
+    "close-other",
     () => {
-      tagsStore.removeOther(props.currentPath)
+      tagsStore.removeOther(props.currentPath);
     },
   ],
   [
-    'close-left',
+    "close-left",
     () => {
-      tagsStore.removeLeft(props.currentPath)
+      tagsStore.removeLeft(props.currentPath);
     },
   ],
   [
-    'close-right',
+    "close-right",
     () => {
-      tagsStore.removeRight(props.currentPath)
+      tagsStore.removeRight(props.currentPath);
     },
   ],
-])
+]);
 
 function handleHideDropdown() {
-  emit('update:show', false)
+  emit("update:show", false);
 }
 
-function handleSelect(key) {
-  const actionFn = actionMap.get(key)
-  actionFn && actionFn()
-  handleHideDropdown()
+function handleSelect(key: any) {
+  const actionFn = actionMap.get(key);
+  actionFn && actionFn();
+  handleHideDropdown();
 }
 </script>

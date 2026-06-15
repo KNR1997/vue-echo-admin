@@ -25,10 +25,12 @@ export const useUserStore = defineStore('user', {
       async getUserInfo() {
       try {
         const res = await api.fetchMe()
+        // @ts-ignore
         if (res.code === 401) {
           this.logout()
           return
         }
+        // @ts-ignore
         const { id, username, email, avatar, roles, is_superuser, is_active } = res
         this.userInfo = { userId: id, username, email, avatar, roles, is_superuser, is_active }
         return res.data

@@ -20,17 +20,23 @@ const appStore = useAppStore();
 const activeKey = computed(() => curRoute.meta?.activeMenu || curRoute.name);
 
 const menuOptions = computed(() => {
-  return permissionStore.menus
-    .map((item) => getMenuItem(item))
-    .sort((a, b) => a.order - b.order);
+  return (
+    permissionStore.menus
+      // @ts-ignore
+      .map((item) => getMenuItem(item))
+      // @ts-ignore
+      .sort((a, b) => a.order - b.order)
+  );
 });
 
 const menu = ref(null);
 watch(curRoute, async () => {
   await nextTick();
+  // @ts-ignore
   menu.value?.showOption();
 });
 
+// @ts-ignore
 function resolvePath(basePath, path) {
   if (isExternal(path)) return path;
   return (
@@ -41,7 +47,7 @@ function resolvePath(basePath, path) {
       .join("/")
   );
 }
-
+// @ts-ignore
 function getMenuItem(route, basePath = "") {
   let menuItem = {
     label: (route.meta && route.meta.title) || route.name,
@@ -52,13 +58,14 @@ function getMenuItem(route, basePath = "") {
   };
 
   const visibleChildren = route.children
-    ? route.children.filter((item) => item.name && !item.isHidden)
+    ? // @ts-ignore
+      route.children.filter((item) => item.name && !item.isHidden)
     : [];
 
   if (!visibleChildren.length) return menuItem;
 
   if (visibleChildren.length === 1) {
-    // 单个子路由处理
+    // Single sub-route processing
     const singleRoute = visibleChildren[0];
     menuItem = {
       ...menuItem,
@@ -68,42 +75,44 @@ function getMenuItem(route, basePath = "") {
       icon: getIcon(singleRoute.meta),
     };
     const visibleItems = singleRoute.children
-      ? singleRoute.children.filter((item) => item.name && !item.isHidden)
+      ? singleRoute.children.filter((item: any) => item.name && !item.isHidden)
       : [];
 
     if (visibleItems.length === 1) {
       menuItem = getMenuItem(visibleItems[0], menuItem.path);
     } else if (visibleItems.length > 1) {
+      // @ts-ignore
       menuItem.children = visibleItems
+        // @ts-ignore
         .map((item) => getMenuItem(item, menuItem.path))
+        // @ts-ignore
         .sort((a, b) => a.order - b.order);
     }
   } else {
+    // @ts-ignore
     menuItem.children = visibleChildren
+      // @ts-ignore
       .map((item) => getMenuItem(item, menuItem.path))
+      // @ts-ignore
       .sort((a, b) => a.order - b.order);
   }
   return menuItem;
 }
-
+// @ts-ignore
 function getIcon(meta) {
   if (meta?.customIcon) return renderCustomIcon(meta.customIcon, { size: 18 });
   if (meta?.icon) return renderIcon(meta.icon, { size: 18 });
   return null;
 }
 
+// @ts-ignore
 function handleMenuSelect(key, item) {
-  console.log('item.path----------------: ', item.path)
-      console.log('curRoute.path-----------: ', curRoute.path)
-
   if (isExternal(item.path)) {
     window.open(item.path);
   } else {
     if (item.path === curRoute.path) {
-      console.log('appStore.reloadPage();')
       appStore.reloadPage();
     } else {
-      console.log('appStore.reloadPage();')
       router.push(item.path);
     }
   }

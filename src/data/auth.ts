@@ -9,30 +9,33 @@ import { nextTick } from "vue";
 import api from "@/api";
 
 export function useLogin() {
-  const message = useMessage()
+  const message = useMessage();
 
   return useMutation<AuthResponse, Error, LoginInput>({
     mutationFn: authClient.login,
     onSuccess: async (response) => {
       // Set token synchronously
-      setToken(response.accessToken)
-      
+      setToken(response.accessToken);
+
       // Ensure token is set before fetching (add small delay if needed)
-      await nextTick() // Only if using Vue reactivity
-      
+      await nextTick(); // Only if using Vue reactivity
+
       // Fetch user details
-      const me = await api.fetchMe()
-      
-      const userStore = useUserStore()
+      const me = await api.fetchMe();
+
+      const userStore = useUserStore();
       userStore.setUserInfo({
+        // @ts-ignore
         userId: me.id,
+        // @ts-ignore
         username: me.username,
-        email: me.email
-      })
+        // @ts-ignore
+        email: me.email,
+      });
     },
     onError: (error: any) => {
-      message.error(error.message)
-      console.log(error.fields)
+      message.error(error.message);
+      console.log(error.fields);
     },
-  })
+  });
 }

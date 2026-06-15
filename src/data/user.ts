@@ -101,6 +101,10 @@ export const useUpdateUserMutation = () => {
         queryKey: [API_ENDPOINTS.USERS],
       })
     },
+    onError: (error: Error) => {
+      console.error('Update User failed:', error)
+      message.error(error.message)
+    },
   })
 }
 

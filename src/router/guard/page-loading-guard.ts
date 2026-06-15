@@ -1,15 +1,18 @@
 export function createPageLoadingGuard(router: any) {
   router.beforeEach(() => {
-    window.$loadingBar?.start()
-  })
+    // @ts-ignore
+    window.$loadingBar?.start();
+  });
 
   router.afterEach(() => {
     setTimeout(() => {
-      window.$loadingBar?.finish()
-    }, 200)
-  })
+      // @ts-ignore
+      window.$loadingBar?.finish();
+    }, 200);
+  });
 
   router.onError(() => {
-    window.$loadingBar?.error()
-  })
+    // @ts-ignore
+    window.$loadingBar?.error();
+  });
 }

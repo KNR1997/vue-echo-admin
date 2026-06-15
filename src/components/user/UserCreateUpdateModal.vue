@@ -1,48 +1,50 @@
 <script setup lang="ts">
-import { computed, ref, toRaw, watch } from 'vue'
-import { NForm, NFormItem, NInput, NButton } from 'naive-ui'
+import { computed, ref, toRaw, watch } from "vue";
+import { NForm, NFormItem, NInput, NButton } from "naive-ui";
 // hooks
-import { useModalStore } from '@/store/modal'
+import { useModalStore } from "@/store/modal";
 // types
-import type { User } from '@/types'
-import { useCreateUserMutation, useUpdateUserMutation } from '@/data/user'
-import { useRolesQuery } from '@/data/role'
-import { useDepartmentsQuery } from '@/data/department'
+import type { User } from "@/types";
+import { useCreateUserMutation, useUpdateUserMutation } from "@/data/user";
+import { useRolesQuery } from "@/data/role";
+import { useDepartmentsQuery } from "@/data/department";
 
 const props = defineProps<{
-  user?: User | null
-}>()
+  user?: User | null;
+}>();
 
-const modal = useModalStore()
+const modal = useModalStore();
 
 // query
 const { roles, paginationInfo, loading } = useRolesQuery({
   page: 1,
   page_size: 20,
-})
+});
 const { departments } = useDepartmentsQuery({
   page: 1,
   page_size: 20,
-})
+});
 
 // mutations
-const { mutateAsync: createUser, isPending: creating } = useCreateUserMutation()
-const { mutateAsync: updateUser, isPending: updating } = useUpdateUserMutation()
+const { mutateAsync: createUser, isPending: creating } =
+  useCreateUserMutation();
+const { mutateAsync: updateUser, isPending: updating } =
+  useUpdateUserMutation();
 
 // Check if it's edit mode
-const isEditMode = computed(() => !!props.user)
+const isEditMode = computed(() => !!props.user);
 
-const modalFormRef = ref()
+const modalFormRef = ref();
 const modalForm = ref({
-  username: '',
-  email: '',
-  password: '',
-  confirmPassword: '',
+  username: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
   is_superuser: false,
   is_active: false,
   role_ids: [],
-  dept_id: '',
-})
+  dept_id: null,
+});
 
 watch(
   () => props.user,
@@ -50,41 +52,45 @@ watch(
     if (!user) {
       // create mode
       modalForm.value = {
-        username: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
+        username: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
         is_superuser: false,
         is_active: false,
         role_ids: [],
-        dept_id: '',
-      }
-      return
+        dept_id: null,
+      };
+      return;
     }
 
     // edit mode
     modalForm.value = {
       username: user.username,
       email: user.email,
+      // @ts-ignore
       role_ids: user.roles.map((role) => role.id),
       is_superuser: user.is_superuser,
       is_active: user.is_active,
-      dept_id: user.department?.id,
-    }
+      // @ts-ignore
+      dept_id: user.department?.id ? user.department.id : null,
+    };
   },
   { immediate: true },
-)
+);
 
 const validationRules = {
-  username: [{ required: true, message: 'Username is required', trigger: ['blur'] }],
-  email: [{ required: true, message: 'Email is required', trigger: ['blur'] }],
-}
+  username: [
+    { required: true, message: "Username is required", trigger: ["blur"] },
+  ],
+  email: [{ required: true, message: "Email is required", trigger: ["blur"] }],
+};
 
 async function handleSave() {
   modalFormRef.value?.validate(async (errors: Error) => {
-    if (errors) return
+    if (errors) return;
     // Convert reactive proxy to raw object
-    const rawForm = toRaw(modalForm.value)
+    const rawForm = toRaw(modalForm.value);
 
     const data = {
       username: rawForm.username,
@@ -94,21 +100,20 @@ async function handleSave() {
       is_active: rawForm.is_active,
       role_ids: rawForm.role_ids,
       dept_id: rawForm.dept_id,
-    }
-    console.log('data-------------: ', data)
+    };
     if (props.user) {
       await updateUser({
         id: props.user.id,
         ...data,
-      })
+      });
     } else {
       await createUser({
         password: rawForm.password,
         ...data,
-      })
+      });
     }
-    modal.close()
-  })
+    modal.close();
+  });
 }
 </script>
 
@@ -152,7 +157,12 @@ async function handleSave() {
       <NFormItem label="Role" path="role_ids">
         <NCheckboxGroup v-model:value="modalForm.role_ids">
           <NSpace item-style="display: flex;">
-            <NCheckbox v-for="item in roles" :key="item.id" :value="item.id" :label="item.name" />
+            <NCheckbox
+              v-for="item in roles"
+              :key="item.id"
+              :value="item.id"
+              :label="item.name"
+            />
           </NSpace>
         </NCheckboxGroup>
       </NFormItem>
@@ -187,7 +197,12 @@ async function handleSave() {
 
     <div flex justify-end>
       <NButton @click="modal.close">Cancel</NButton>
-      <NButton type="primary" class="ml-16" :loading="creating || updating" @click="handleSave">
+      <NButton
+        type="primary"
+        class="ml-16"
+        :loading="creating || updating"
+        @click="handleSave"
+      >
         Save
       </NButton>
     </div>

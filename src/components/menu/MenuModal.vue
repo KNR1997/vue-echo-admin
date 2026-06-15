@@ -54,7 +54,6 @@ watch(
   () => props.menu,
   (menu) => {
     if (!menu) {
-      console.log('no menu honey----------------------')
       // create mode
       modalForm.value = {
         menu_type: 'catalog',

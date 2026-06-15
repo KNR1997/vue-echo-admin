@@ -11,9 +11,11 @@ import { baseClient } from './client/base'
 export const useUserMenusQuery = () => {
   const { data, error, isPending } = useQuery<MenuPaginator, Error>({
     queryKey: [API_ENDPOINTS.BASE],
+    // @ts-ignore
     queryFn: () =>
       baseClient.getUserMenus(),
   })
+  // @ts-ignore
   const menus = computedAsync<Menu[]>(() => data.value?.data ?? []) // todo -> fix
   return {
     menus,

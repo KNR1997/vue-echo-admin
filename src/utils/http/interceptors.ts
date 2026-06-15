@@ -2,8 +2,9 @@ import { getToken } from '@/utils'
 import { resolveResError } from './helpers'
 import { useUserStore } from '@/store'
 
+// @ts-ignore
 export function reqResolve(config) {
-  // 处理不需要token的请求
+  // Handling requests that do not require a token
   if (config.noNeedToken) {
     return config
   }
@@ -19,16 +20,18 @@ export function reqResolve(config) {
   return config
 }
 
+// @ts-ignore
 export function reqReject(error) {
   return Promise.reject(error)
 }
 
+// @ts-ignore
 export function resResolve(response) {
-  console.log('response-----------: ', response)
   const { data, status, statusText } = response
+  console.log('data---------------: ', data)
   // if (data?.code !== 200) {
   //   const code = data?.code ?? status
-  //   /** 根据code处理对应的操作，并返回处理后的message */
+  //   /** Process the corresponding operation based on the code and return the processed message. */
   //   const message = resolveResError(code, data?.msg ?? statusText)
   //   window.$message?.error(message, { keepAliveOnHover: true })
   //   return Promise.reject({ code, message, error: data || response })
@@ -36,11 +39,13 @@ export function resResolve(response) {
   return Promise.resolve(data)
 }
 
+// @ts-ignore
 export async function resReject(error) {
   if (!error || !error.response) {
     const code = error?.code
-    /** 根据code处理对应的操作，并返回处理后的message */
+    /** Process the corresponding operation based on the code and return the processed message. */
     const message = resolveResError(code, error.message)
+    // @ts-ignore
     window.$message?.error(message)
     return Promise.reject({ code, message, error })
   }
@@ -55,9 +60,10 @@ export async function resReject(error) {
       return
     }
   }
-  // 后端返回的response数据
+  // response data returned by the backend
   const code = data?.code ?? status
   const message = resolveResError(code, data?.msg ?? error.message)
+  // @ts-ignore
   window.$message?.error(message, { keepAliveOnHover: true })
   return Promise.reject({ code, message, error: error.response?.data || error.response })
 }

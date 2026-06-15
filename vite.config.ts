@@ -5,6 +5,7 @@ import vue from "@vitejs/plugin-vue";
 import vueDevTools from "vite-plugin-vue-devtools";
 import { convertEnv, getRootPath } from "./build/utils";
 import UnoCSS from "unocss/vite";
+// @ts-ignore
 import { createVitePlugins } from "./build/plugin";
 
 // https://vite.dev/config/

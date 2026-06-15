@@ -8,6 +8,6 @@
 import { Icon } from '@iconify/vue'
 
 function handleLinkClick() {
-  window.open('https://github.com/mizhexiaoxiao/vue-fastapi-admin')
+  window.open('https://github.com/KNR1997/vue-echo-admin')
 }
 </script>

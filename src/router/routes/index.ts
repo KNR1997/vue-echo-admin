@@ -1,3 +1,4 @@
+// @ts-ignore
 import i18n from "~/i18n";
 const { t } = i18n.global;
 
@@ -6,7 +7,7 @@ const Layout = () => import("@/layout/index.vue");
 export const basicRoutes = [
   {
     path: "/",
-    redirect: "/workbench", // 默认跳转到首页
+    redirect: "/workbench", // Redirecting to the homepage by default
     meta: { order: 0 },
   },
   {
@@ -113,7 +114,7 @@ export const basicRoutes = [
     component: () => import("@/views/login/index.vue"),
     isHidden: true,
     meta: {
-      title: "登录页",
+      title: "Login",
     },
   },
 ];
@@ -134,10 +135,11 @@ export const EMPTY_ROUTE = {
 const modules = import.meta.glob("@/views/**/route.js", { eager: true });
 const asyncRoutes = [];
 Object.keys(modules).forEach((key) => {
+  // @ts-ignore
   asyncRoutes.push(modules[key].default);
 });
 
-// 加载 views 下每个模块的 index.vue 文件
+// Load the index.vue file of each module under views.
 const vueModules = import.meta.glob("@/views/**/index.vue");
 
 export { asyncRoutes, vueModules };

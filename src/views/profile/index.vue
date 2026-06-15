@@ -96,7 +96,7 @@ const passwordFormRules = {
   ],
 };
 
-function validatePasswordStartWith(rule, value) {
+function validatePasswordStartWith(rule: any, value: any) {
   return (
     !!passwordForm.value.new_password &&
     passwordForm.value.new_password.startsWith(value) &&
@@ -104,7 +104,7 @@ function validatePasswordStartWith(rule, value) {
   );
 }
 
-function validatePasswordSame(rule, value) {
+function validatePasswordSame(rule: any, value: any) {
   return value === passwordForm.value.new_password;
 }
 

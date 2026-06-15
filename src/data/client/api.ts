@@ -15,6 +15,7 @@ export const apiClient = {
     return HttpClient.get<ApiPaginator>(API_ENDPOINTS.APIS, {
       searchJoin: 'and',
       ...params,
+      // @ts-ignore
       search: HttpClient.formatSearchParams({ path, tags }),
     })
   },

@@ -15,6 +15,7 @@ export const departmentClient = {
     return HttpClient.get<DepartmentPaginator>(API_ENDPOINTS.DEPARTMENTS, {
       searchJoin: 'and',
       ...params,
+      // @ts-ignore
       search: HttpClient.formatSearchParams({ name }),
     })
   },

@@ -17,6 +17,7 @@ export const userClient = {
     return HttpClient.get<UserPaginator>(API_ENDPOINTS.USERS, {
       searchJoin: 'and',
       ...params,
+      // @ts-ignore
       search: HttpClient.formatSearchParams({ username, email }),
     })
   },

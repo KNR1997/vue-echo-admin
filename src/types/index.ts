@@ -25,11 +25,11 @@ export interface GetParams {
 
 export interface QueryOptions {
   language: string
-  limit?: Ref<number, number>
-  page?: Ref<number, number>
+  limit?: Ref<number, number> | number
+  page?: Ref<number, number> | number
   orderBy?: string
   sortedBy?: SortOrder
-  page_size?:  Ref<number, number>
+  page_size?:  Ref<number, number> | number
 }
 
 export interface PaginatorInfo<T> {
@@ -83,7 +83,7 @@ export interface UserCreateInput {
   is_superuser: boolean
   is_active: boolean
   role_ids: number[]
-  dept_id: string
+  dept_id: string | null
 }
 
 export interface Manufacturer {
@@ -159,6 +159,16 @@ export interface Menu {
   order: string
   is_hidden: boolean
   keepalive: boolean
+}
+
+export interface MeResponse {
+  id: number
+  username: string
+  email: string
+  avatar: string
+  roles: string
+  is_superuser: boolean
+  is_active: boolean
 }
 
 export interface MenuCreateInput {
