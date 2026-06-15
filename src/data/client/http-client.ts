@@ -1,3 +1,4 @@
+import { useUserStore } from '@/store'
 import type { ApiError } from '@/types'
 import { getToken } from '@/utils/auth/token'
 import axios, { type AxiosError } from 'axios'
@@ -36,6 +37,11 @@ Axios.interceptors.response.use(
   (response) => response,
   (error: AxiosError<ApiError>) => {
     const apiError = error.response?.data
+
+    if (error?.response?.status === 401) {
+      const userStore = useUserStore()
+      userStore.logout()
+    }
 
     return Promise.reject({
       status: error.response?.status,
