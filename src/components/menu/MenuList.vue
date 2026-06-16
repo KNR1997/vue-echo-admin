@@ -41,7 +41,7 @@ function handleAdd(menu: Menu) {
     title: 'Add Menu',
     props: {
       menu: {
-        menu_type: 'menu',
+        menus_type: 'menu',
         parent_id: menu.id,
         keepalive: true,
       }
@@ -91,24 +91,24 @@ const columns = [
   { title: 'Name', key: 'name', width: 80, ellipsis: { tooltip: true }, align: 'center' },
   {
     title: 'Menu type',
-    key: 'menu_type',
+    key: 'menus_type',
     width: 80,
     align: 'center',
     ellipsis: { tooltip: true },
     render(row) {
       let round = false
       let bordered = false
-      if (row.menu_type === 'catalog') {
+      if (row.menus_type === 'catalog') {
         bordered = true
         round = false
-      } else if (row.menu_type === 'menu') {
+      } else if (row.menus_type === 'menu') {
         bordered = false
         round = true
       }
       return h(
         NTag,
         { type: 'primary', round: round, bordered: bordered },
-        { default: () => (row.menu_type === 'catalog' ? 'catalog' : 'menu') },
+        { default: () => (row.menus_type === 'catalog' ? 'catalog' : 'menu') },
       )
     },
   },
@@ -176,7 +176,7 @@ const columns = [
             size: 'tiny',
             quaternary: true,
             type: 'primary',
-            style: `display: ${row.children && row.menu_type !== 'menu' ? '' : 'none'};`,
+            style: `display: ${row.children && row.menus_type !== 'menu' ? '' : 'none'};`,
             onClick: () => handleAdd(row),
           },
           { default: () => 'submenu', icon: renderIcon('material-symbols:add', { size: 16 }) },

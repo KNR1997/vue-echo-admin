@@ -20,7 +20,7 @@ const { mutateAsync: updateRole, isPending: updating } = useUpdateRoleMutation()
 const modalFormRef = ref()
 const modalForm = ref({
   name: '',
-  desc: '',
+  description: '',
 })
 
 watch(
@@ -30,7 +30,7 @@ watch(
       // create mode
       modalForm.value = {
         name: '',
-        desc: '',
+        description: '',
       }
       return
     }
@@ -38,7 +38,7 @@ watch(
     // edit mode
     modalForm.value = {
       name: role.name,
-      desc: role.desc,
+      description: role.description,
     }
   },
   { immediate: true },
@@ -55,12 +55,12 @@ async function handleSave() {
       await updateRole({
         id: props.role.id,
         name: modalForm.value.name,
-        desc: modalForm.value.desc,
+        description: modalForm.value.description,
       })
     } else {
       await createRole({
         name: modalForm.value.name,
-        desc: modalForm.value.desc,
+        description: modalForm.value.description,
 
       })
     }
@@ -76,18 +76,18 @@ async function handleSave() {
       ref="modalFormRef"
       label-placement="left"
       label-align="left"
-      :label-width="80"
+      :label-width="100"
       :model="modalForm"
       :rules="validationRules"
     >
       <NFormItem label="Name" path="name">
         <NInput v-model:value="modalForm.name" clearable placeholder="Please enter ROLE name" />
       </NFormItem>
-      <NFormItem label="Desc" path="desc">
+      <NFormItem label="description" path="description">
         <NInput
-          v-model:value="modalForm.desc"
+          v-model:value="modalForm.description"
           clearable
-          placeholder="Please enter ROLE description"
+          placeholder="Please enter ROLE descriptionription"
         />
       </NFormItem>
     </NForm>

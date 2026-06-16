@@ -28,7 +28,6 @@ export function reqReject(error) {
 // @ts-ignore
 export function resResolve(response) {
   const { data, status, statusText } = response
-  console.log('data---------------: ', data)
   // if (data?.code !== 200) {
   //   const code = data?.code ?? status
   //   /** Process the corresponding operation based on the code and return the processed message. */

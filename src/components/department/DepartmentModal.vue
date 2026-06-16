@@ -38,7 +38,7 @@ watch(
     // edit mode
     modalForm.value = {
       name: department.name,
-      notes: department.notes,
+      notes: department.desc,
     }
   },
   { immediate: true },

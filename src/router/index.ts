@@ -33,8 +33,6 @@ export async function resetRouter() {
 export async function addDynamicRoutes() {
   const token = getToken()
 
-  console.log('token----------: ', token)
-
   // No token
   if (isNullOrWhitespace(token)) {
     // @ts-ignore

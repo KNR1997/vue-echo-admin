@@ -28,7 +28,7 @@ const { menus, paginationInfo, loading } = useMenusQuery({
 const menuOptions = ref([])
 const modalFormRef = ref()
 const modalForm = ref({
-  menu_type: '',
+  menus_type: '',
   parent_id: 0,
   name: '',
   path: '',
@@ -56,7 +56,7 @@ watch(
     if (!menu) {
       // create mode
       modalForm.value = {
-        menu_type: 'catalog',
+        menus_type: 'catalog',
         parent_id: 0,
         name: '',
       }
@@ -65,7 +65,7 @@ watch(
 
     // edit mode
     modalForm.value = {
-      menu_type: menu.menu_type,
+      menus_type: menu.menus_type,
       parent_id: menu.parent_id,
       name: menu.name,
       path: menu.path,
@@ -91,7 +91,7 @@ async function handleSave() {
   modalFormRef.value?.validate(async (errors: Error) => {
     if (errors) return
     const data = {
-      menu_type: modalForm.value.menu_type,
+      menus_type: modalForm.value.menus_type,
       parent_id: modalForm.value.parent_id,
       name: modalForm.value.name,
       path: modalForm.value.path,
@@ -128,10 +128,10 @@ async function handleSave() {
       :model="modalForm"
       :rules="validationRules"
     >
-      <NFormItem label="Menu Type" path="menu_type">
-        <NRadioGroup v-model:value="modalForm.menu_type">
+      <NFormItem label="Menu Type" path="menus_type">
+        <NRadioGroup v-model:value="modalForm.menus_type">
           <NRadio label="Catalog" value="catalog" />
-          <NRadio label="Menu" value="menu" />
+          <NRadio label="Menus" value="menus" />
         </NRadioGroup>
       </NFormItem>
       <NFormItem label="Parent Menu" path="parent_id">
@@ -165,7 +165,7 @@ async function handleSave() {
       >
         <NInput v-model:value="modalForm.path" placeholder="Please enter access path" />
       </NFormItem>
-      <NFormItem v-if="modalForm.menu_type === 'menu'" label="Component Path" path="component">
+      <NFormItem v-if="modalForm.menus_type === 'menus'" label="Component Path" path="component">
         <NInput
           v-model:value="modalForm.component"
           placeholder="Please enter component path, e.g.: /system/user"

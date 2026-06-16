@@ -20,7 +20,7 @@ export interface MappedPaginatorInfo {
 }
 
 export interface GetParams {
-  id: string
+  id: number
 }
 
 export interface QueryOptions {
@@ -148,8 +148,8 @@ export interface ApiCreateInput {
 }
 
 export interface Menu {
-  id: string
-  menu_type: string
+  id: number
+  menus_type: string
   parent_id: number
   name: string
   path: string
@@ -172,7 +172,7 @@ export interface MeResponse {
 }
 
 export interface MenuCreateInput {
-  menu_type: string
+  menus_type: string
   parent_id: number
   name: string
   path: string
@@ -187,7 +187,7 @@ export interface MenuCreateInput {
 export interface Role {
   id: number
   name: string
-  desc: string
+  description: string
   created_at: string
   menu_ids: number[]
   apis: Api[]
@@ -195,7 +195,7 @@ export interface Role {
 
 export interface RoleCreateInput {
   name: string
-  desc: string
+  description: string
 }
 
 export interface AuthorizeRoleInput {
@@ -260,7 +260,7 @@ export interface CategoryCreateInput {
 export interface Department {
   id: string
   name: string
-  notes: string
+  desc: string
 }
 
 export interface DepartmentCreateInput {
