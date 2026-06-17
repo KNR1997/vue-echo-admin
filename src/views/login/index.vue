@@ -22,8 +22,8 @@ const formErrors = ref<Record<string, string[]>>({})
 const { mutateAsync: login, isPending } = useLogin()
 
 const loginInfo = ref({
-  email: '',
-  password: '',
+  email: 'admin@demo.com',
+  password: 'demodemo',
 })
 
 async function handleLogin() {
