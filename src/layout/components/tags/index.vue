@@ -66,7 +66,6 @@ watch(
 )
 
 const handleTagClick = (path) => {
-  console.log("handleTagClick")
   tagsStore.setActiveTag(path)
   router.push(path)
 }
