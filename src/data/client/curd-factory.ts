@@ -1,28 +1,29 @@
-import type { GetParams, PaginatorInfo } from '@/types'
-import { HttpClient } from './http-client'
+import { HttpClient } from "./http-client";
+// types
+import type { ApiReponse, GetParams, PaginatorInfo } from "@/types";
 
 export function crudFactory<Type, QueryParams, InputType>(endpoint: string) {
   return {
     all(params: QueryParams) {
-      return HttpClient.get<Type[]>(endpoint, params)
+      return HttpClient.get<Type[]>(endpoint, params);
     },
     paginated(params: QueryParams) {
-      return HttpClient.get<PaginatorInfo<Type>>(endpoint, params)
+      return HttpClient.get<PaginatorInfo<Type>>(endpoint, params);
     },
     get({ id }: GetParams) {
-      return HttpClient.get<Type>(`${endpoint}/${id}`)
+      return HttpClient.get<Type>(`${endpoint}/${id}`);
     },
     create(data: InputType) {
-      return HttpClient.post<Type>(endpoint, data)
+      return HttpClient.post<ApiReponse<Type>>(endpoint, data);
     },
     update({ id, ...input }: Partial<InputType> & { id: number }) {
-      return HttpClient.put<Type>(`${endpoint}/${id}`, input)
+      return HttpClient.put<ApiReponse<Type>>(`${endpoint}/${id}`, input);
     },
     patch({ id, ...input }: Partial<InputType> & { id: number }) {
-      return HttpClient.patch<Type>(`${endpoint}/${id}`, input)
+      return HttpClient.patch<ApiReponse<Type>>(`${endpoint}/${id}`, input);
     },
     delete({ id }: { id: number }) {
-      return HttpClient.delete<boolean>(`${endpoint}/${id}`)
+      return HttpClient.delete<ApiReponse<null>>(`${endpoint}/${id}`);
     },
-  }
+  };
 }

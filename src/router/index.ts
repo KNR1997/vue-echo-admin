@@ -59,13 +59,10 @@ export async function addDynamicRoutes() {
 }
 
 export function getRouteNames(routes: any) {
-  console.log('here getting routes name')
   return routes.map((route: any) => getRouteName(route)).flat(1)
 }
 
 function getRouteName(route: any) {
-  console.log('here getting routes name')
-
   const names = [route.name]
   if (route.children && route.children.length) {
     names.push(...route.children.map((item: any) => getRouteName(item)).flat(1))

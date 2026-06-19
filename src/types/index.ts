@@ -42,6 +42,12 @@ export interface PaginatorInfo<T> {
   data: T[]
 }
 
+export interface ApiReponse<T> {
+  code: number
+  message: string
+  data: T
+}
+
 export interface LoginInput {
   email: string
   password: string
@@ -268,18 +274,34 @@ export interface DepartmentCreateInput {
   desc: string
 }
 
+export interface AuditLog {
+  id: string
+  username: string
+  module: string
+  summary: string
+  method: string
+  path: string
+  request_body: string
+  response_body: string
+}
+
+export interface AuditLogCreateInput {
+  name: string
+  desc: string
+}
+
 export interface ProfileUpdateInput {
   username: string
   email: string
 }
 
 export interface UserMeResponse {
-  data: {
-    id: number
-    username: string
-    email: string
-    role: string
-  }
+  id: number
+  username: string
+  email: string
+  roles: Role[]
+  is_superuser: boolean
+  is_active: boolean
 }
 
 export interface Quiz {
@@ -346,6 +368,16 @@ export interface DepartmentQueryOptions extends QueryOptions {
   name: Ref<string, string>
 }
 
+export interface AuditLogQueryOptions extends QueryOptions {
+  name: Ref<string, string>
+  username: Ref<string, string>
+  module: Ref<string, string>
+  summary: Ref<string, string>
+  path: Ref<string, string>
+  status: Ref<string, string>
+  method: Ref<string, string>
+}
+
 export interface UserQueryOptions extends QueryOptions {
   username: Ref<string, string>
   email: Ref<string, string>
@@ -394,3 +426,5 @@ export interface RolePaginator extends PaginatorInfo<Role> {}
 export interface MenuPaginator extends PaginatorInfo<Menu> {}
 
 export interface UserPaginator extends PaginatorInfo<User> {}
+
+export interface AuditLogPaginator extends PaginatorInfo<AuditLog> {}
