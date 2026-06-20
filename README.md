@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/knr1997/vue-echo-admin">
-    <img alt="Vue FastAPI Admin Logo" width="200" src="https://github.com/knr1997/vue-echo-admin/public/ss/deploy/sample-picture/logo.svg">
+    <img alt="Vue FastAPI Admin Logo" width="200" src="https://github.com/knr1997/vue-echo-admin/public/ss/logo.svg">
   </a>
 </p>
 
@@ -16,29 +16,29 @@ vue-echo-admin is a modern front-end and back-end separation development platfor
 - **Granular Permission Control**: Implements detailed permission management including button and interface level controls, ensuring different roles and users have appropriate permissions.
 
 ### Live Demo
-- URL: http://139.9.100.77:9999
-- Username: admin
-- Password: 123456
+- URL: https://vue-echo-admin.vercel.app
+- Username: admin@demo.com
+- Password: demodemo
 
 ### Screenshots
 
 #### Login Page
-![Login Page](https://github.com/knr1997/vue-echo-admin/public/ss/login.jpg)
+![Login Page](https://github.com/knr1997/vue-echo-admin/blob/master/public/ss/login.jpg)
 
 #### Workbench
-![Workbench](https://github.com/knr1997/vue-echo-admin/public/ss/workbench.jpg)
+![Workbench](https://github.com/knr1997/vue-echo-admin/blob/master/public/ss/workbench.jpg)
 
 #### User Management
-![User Management](https://github.com/knr1997/vue-echo-admin/public/ss/users.jpg)
+![User Management](https://github.com/knr1997/vue-echo-admin/blob/master/public/ss/users.jpg)
 
 #### Role Management
-![Role Management](https://github.com/knr1997/vue-echo-admin/public/ss/role-management.jpg)
+![Role Management](https://github.com/knr1997/vue-echo-admin/blob/master/public/ss/role-management.jpg)
 
 #### Menu Management
-![Menu Management](https://github.com/knr1997/vue-echo-admin/public/ss/menu-management.jpg)
+![Menu Management](https://github.com/knr1997/vue-echo-admin/blob/master/public/ss/menu-management.jpg)
 
 #### API Management
-![API Management](https://github.com/knr1997/vue-echo-admin/public/ss/api-management.jpg)
+![API Management](https://github.com/KNR1997/vue-echo-admin/blob/master/public/ss/api-management.png)
 
 ### Quick Start
 Please follow the instructions below for installation and configuration:
