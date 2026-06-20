@@ -1,7 +1,7 @@
 <template>
   <router-link h-60 f-c-c to="/">
-    <!-- <icon-custom-logo text-36 color-primary></icon-custom-logo> -->
-    <Icon text-24 icon="logos:vue" />
+    <icon-custom-logo text-36 color-primary></icon-custom-logo>
+    <!-- <Icon text-24 icon="logos:vue" /> -->
     <h2
       v-show="!appStore.collapsed"
       ml-2

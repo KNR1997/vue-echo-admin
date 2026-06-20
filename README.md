@@ -1,42 +1,114 @@
-# tauri-admin-vue
+<p align="center">
+  <a href="https://github.com/knr1997/vue-echo-admin">
+    <img alt="Vue FastAPI Admin Logo" width="200" src="https://github.com/knr1997/vue-echo-admin/public/ss/deploy/sample-picture/logo.svg">
+  </a>
+</p>
 
-This template should help get you started developing with Vue 3 in Vite.
+<h1 align="center">vue-echo-admin</h1>
 
-## Recommended IDE Setup
+vue-echo-admin is a modern front-end and back-end separation development platform that combines Golang(Echo), Vue3, and Naive UI. It incorporates RBAC (Role-Based Access Control) management, dynamic routing, and JWT (JSON Web Token) authentication, making it ideal for rapid development of small to medium-sized applications and also serves as a valuable learning resource.
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+### Features
+- **Popular Tech Stack**: The backend is developed with the high-performance asynchronous framework FastAPI using Python 3.11, while the front-end is powered by cutting-edge technologies such as Vue3 and Vite, complemented by the efficient package manager, pnpm.
+- **Code Standards**: The project is equipped with various plugins for code standardization and quality control, ensuring consistency and enhancing team collaboration efficiency.
+- **Dynamic Routing**: Backend dynamic routing combined with the RBAC model allows for fine-grained control of menus and routing.
+- **JWT Authentication**: User identity verification and authorization are handled through JWT, enhancing the application's security.
+- **Granular Permission Control**: Implements detailed permission management including button and interface level controls, ensuring different roles and users have appropriate permissions.
 
-## Recommended Browser Setup
+### Live Demo
+- URL: http://139.9.100.77:9999
+- Username: admin
+- Password: 123456
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+### Screenshots
 
-## Type Support for `.vue` Imports in TS
+#### Login Page
+![Login Page](https://github.com/knr1997/vue-echo-admin/public/ss/login.jpg)
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+#### Workbench
+![Workbench](https://github.com/knr1997/vue-echo-admin/public/ss/workbench.jpg)
 
-## Customize configuration
+#### User Management
+![User Management](https://github.com/knr1997/vue-echo-admin/public/ss/users.jpg)
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+#### Role Management
+![Role Management](https://github.com/knr1997/vue-echo-admin/public/ss/role-management.jpg)
 
-## Project Setup
+#### Menu Management
+![Menu Management](https://github.com/knr1997/vue-echo-admin/public/ss/menu-management.jpg)
 
+#### API Management
+![API Management](https://github.com/knr1997/vue-echo-admin/public/ss/api-management.jpg)
+
+### Quick Start
+Please follow the instructions below for installation and configuration:
+
+#### Frontend
+The frontend project requires a Node.js environment (recommended version 18.8.0 or higher).
+- node v18.8.0+
+
+1. Navigate to the frontend project directory:
 ```sh
-npm install
+cd vue-echo-admin
 ```
 
-### Compile and Hot-Reload for Development
-
+2. Install project dependencies (pnpm is recommended: https://pnpm.io/zh/installation)
 ```sh
-npm run dev
+npm i -g pnpm # If pnpm is already installed, skip this step
+pnpm i # Or use npm i
 ```
 
-### Type-Check, Compile and Minify for Production
-
+3. Start the frontend development server:
 ```sh
-npm run build
+pnpm dev
 ```
+
+### Directory Structure Explanation
+
+```
+└── root                  // Front-end web directory
+    ├── build             // Build scripts and configuration directory
+    │   ├── config        // Build configurations
+    │   ├── plugin        // Build plugins
+    │   └── script        // Build scripts
+    ├── public            // Public resources directory
+    │   └── resource      // Public resource files
+    ├── settings          // Front-end project settings
+    └── src               // Source code directory
+        ├── api           // API interface definitions
+        ├── assets        // Static resources directory
+        │   ├── images    // Image resources
+        │   ├── js        // JavaScript files
+        │   └── svg       // SVG vector files
+        ├── components    // Components directory
+        │   ├── common    // Common components
+        │   ├── icon      // Icon components
+        │   ├── page      // Page components
+        │   ├── query-bar // Query bar components
+        │   └── table     // Table components
+        ├── composables   // Composable functionalities
+        ├── directives    // Directives directory
+        ├── layout        // Layout directory
+        │   └── components // Layout components
+        ├── router        // Routing directory
+        │   ├── guard     // Route guards
+        │   └── routes    // Route definitions
+        ├── store         // State management (pinia)
+        │   └── modules   // State modules
+        ├── styles        // Style files directory
+        ├── utils         // Utilities directory
+        │   ├── auth      // Authentication related utilities
+        │   ├── common    // Common utilities
+        │   ├── http      // Encapsulated axios
+        │   └── storage   // Encapsulated localStorage and sessionStorage
+        └── views         // Views/Pages directory
+            ├── error-page // Error pages
+            ├── login      // Login page
+            ├── profile    // Profile page
+            ├── system     // System management page
+            └── workbench  // Workbench page
+```
+
+### Visitors Count
+
+<img align="left" src = "https://profile-counter.glitch.me/vue-echo-admin/count.svg" alt="Loading">
