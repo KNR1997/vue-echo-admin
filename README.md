@@ -1,12 +1,14 @@
 <p align="center">
-  <a href="https://github.com/knr1997/vue-echo-admin">
-    <img alt="Vue FastAPI Admin Logo" width="200" src="https://github.com/knr1997/vue-echo-admin/public/ss/logo.svg">
+  <a href="https://github.com/KNR1997/vue-echo-admin">
+    <img alt="Vue FastAPI Admin Logo" width="200" src="https://github.com/KNR1997/vue-echo-admin/public/ss/logo.svg">
   </a>
 </p>
 
 <h1 align="center">vue-echo-admin</h1>
 
 vue-echo-admin is a modern front-end and back-end separation development platform that combines Golang(Echo), Vue3, and Naive UI. It incorporates RBAC (Role-Based Access Control) management, dynamic routing, and JWT (JSON Web Token) authentication, making it ideal for rapid development of small to medium-sized applications and also serves as a valuable learning resource.
+
+> **Note**: This repository contains only the frontend part of the application. The backend repository that connects with this frontend can be found at: [Backend Repository URL - https://github.com/KNR1997/go-echo-starter]
 
 ### Features
 - **Popular Tech Stack**: The backend is developed with the high-performance asynchronous framework FastAPI using Python 3.11, while the front-end is powered by cutting-edge technologies such as Vue3 and Vite, complemented by the efficient package manager, pnpm.
@@ -23,19 +25,19 @@ vue-echo-admin is a modern front-end and back-end separation development platfor
 ### Screenshots
 
 #### Login Page
-![Login Page](https://github.com/knr1997/vue-echo-admin/blob/master/public/ss/login.jpg)
+![Login Page](https://github.com/KNR1997/vue-echo-admin/blob/master/public/ss/login.jpg)
 
 #### Workbench
-![Workbench](https://github.com/knr1997/vue-echo-admin/blob/master/public/ss/workbench.jpg)
+![Workbench](https://github.com/KNR1997/vue-echo-admin/blob/master/public/ss/workbench.jpg)
 
 #### User Management
-![User Management](https://github.com/knr1997/vue-echo-admin/blob/master/public/ss/users.jpg)
+![User Management](https://github.com/KNR1997/vue-echo-admin/blob/master/public/ss/users.jpg)
 
 #### Role Management
-![Role Management](https://github.com/knr1997/vue-echo-admin/blob/master/public/ss/role-management.jpg)
+![Role Management](https://github.com/KNR1997/vue-echo-admin/blob/master/public/ss/role-management.jpg)
 
 #### Menu Management
-![Menu Management](https://github.com/knr1997/vue-echo-admin/blob/master/public/ss/menu-management.jpg)
+![Menu Management](https://github.com/KNR1997/vue-echo-admin/blob/master/public/ss/menu-management.jpg)
 
 #### API Management
 ![API Management](https://github.com/KNR1997/vue-echo-admin/blob/master/public/ss/api-management.png)
