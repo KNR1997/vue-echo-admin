@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/KNR1997/vue-echo-admin">
-    <img alt="Vue FastAPI Admin Logo" width="200" src="https://github.com/KNR1997/vue-echo-admin/public/ss/logo.svg">
+    <img alt="Vue FastAPI Admin Logo" width="200" src="https://github.com/KNR1997/vue-echo-admin/blob/master/public/ss/logo.svg">
   </a>
 </p>
 
@@ -25,19 +25,19 @@ vue-echo-admin is a modern front-end and back-end separation development platfor
 ### Screenshots
 
 #### Login Page
-![Login Page](https://github.com/KNR1997/vue-echo-admin/blob/master/public/ss/login.jpg)
+![Login Page](https://github.com/KNR1997/vue-echo-admin/blob/master/public/ss/login.png)
 
 #### Workbench
-![Workbench](https://github.com/KNR1997/vue-echo-admin/blob/master/public/ss/workbench.jpg)
+![Workbench](https://github.com/KNR1997/vue-echo-admin/blob/master/public/ss/workbench.png)
 
 #### User Management
-![User Management](https://github.com/KNR1997/vue-echo-admin/blob/master/public/ss/users.jpg)
+![User Management](https://github.com/KNR1997/vue-echo-admin/blob/master/public/ss/users.png)
 
 #### Role Management
-![Role Management](https://github.com/KNR1997/vue-echo-admin/blob/master/public/ss/role-management.jpg)
+![Role Management](https://github.com/KNR1997/vue-echo-admin/blob/master/public/ss/role-management.png)
 
 #### Menu Management
-![Menu Management](https://github.com/KNR1997/vue-echo-admin/blob/master/public/ss/menu-management.jpg)
+![Menu Management](https://github.com/KNR1997/vue-echo-admin/blob/master/public/ss/menu-management.png)
 
 #### API Management
 ![API Management](https://github.com/KNR1997/vue-echo-admin/blob/master/public/ss/api-management.png)
